@@ -50,10 +50,11 @@ def main():
   os.environ['MASTER_PORT'] = '6060'
 
   hps = utils.get_hparams()
-  mp.spawn(run, nprocs=1, args=(hps,))
+  n_gpus=1
+  mp.spawn(run, nprocs=1, args=(n_gpus, hps,))
 
 
-def run(rank, hps):
+def run(rank, n_gpus, hps):
   global global_step
   if rank == 0:
     logger = utils.get_logger(hps.model_dir)
